@@ -1,0 +1,10 @@
+{
+    "sales_order": {
+        "column": {
+            "kss_method": true,
+            "kss_carrier": true,
+            "kss_class": true,
+            "kss_pickup_location_id": true
+        }
+    }
+}
