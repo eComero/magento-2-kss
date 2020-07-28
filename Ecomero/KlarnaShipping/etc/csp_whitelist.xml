@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="script-klarna-playground-js" type="host">https://js.playground.klarna.com</value>
+                <value id="script-klarna-js" type="host">https://js.klarna.com</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="frame-klarna-playground-js" type="host">https://js.playground.klarna.com</value>
+                <value id="frame-klarna-js" type="host">https://js.klarna.com</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="img-klarna-playground-eu-evt" type="host">https://eu.playground.klarnaevt.com</value>
+                <value id="img-klarna-eu-evt" type="host">https://eu.klarnaevt.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>
