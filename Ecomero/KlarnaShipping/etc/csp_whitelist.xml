@@ -19,5 +19,11 @@
                 <value id="img-klarna-eu-evt" type="host">https://eu.klarnaevt.com</value>
             </values>
         </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="img-klarna-playground-eu-evt" type="host">https://eu.playground.klarnaevt.com</value>
+                <value id="img-klarna-eu-evt" type="host">https://eu.klarnaevt.com</value>
+            </values>
+        </policy>
     </policies>
 </csp_whitelist>
