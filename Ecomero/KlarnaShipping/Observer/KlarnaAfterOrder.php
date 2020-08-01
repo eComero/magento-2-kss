@@ -37,5 +37,10 @@ class KlarnaAfterOrder implements ObserverInterface
         $order->setKssClass($class);
         $order->setKssPickupLocationId($pickupPointId);
         $order->save();
+
+        $this->session->unsetKssMethod();
+        $this->session->unsetKssCarrier();
+        $this->session->unsetKssClass();
+        $this->session->unsetKssPickupLocationId();
     }
 }
