@@ -1,17 +1,16 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 /**
+ *
  *           a88888P8
  *          d8'
  * .d8888b. 88        .d8888b. 88d8b.d8b. .d8888b. .dd888b. .d8888b.
  * 88ooood8 88        88'  `88 88'`88'`88 88ooood8 88'    ` 88'  `88
  * 88.  ... Y8.       88.  .88 88  88  88 88.  ... 88       88.  .88
- * `8888P'   Y88888P8 `88888P' dP  dP  dP `8888P'  dP       `88888P'.
+ * `8888P'   Y88888P8 `88888P' dP  dP  dP `8888P'  dP       `88888P'
  *
  *           Copyright © eComero Management AB, All rights reserved.
+ *
  */
-
 namespace Ecomero\KlarnaShipping\Observer;
 
 use Magento\Checkout\Model\Session as CheckoutSession;
@@ -31,23 +30,25 @@ class KlarnaBeforeOrder implements ObserverInterface
         $checkoutData = $observer->getData('checkout');
         $selectedOptions = $checkoutData->getSelectedShippingOption();
 
-        if (array_key_exists('name', $selectedOptions)) {
-            $this->session->setKssMethod($selectedOptions['name']);
-        }
-
-        if (array_key_exists('delivery_details', $selectedOptions)) {
-            if (array_key_exists('carrier', $selectedOptions['delivery_details'])) {
-                $this->session->setKssCarrier($selectedOptions['delivery_details']['carrier']);
+        if ($selectedOptions) {
+            if (array_key_exists('name', $selectedOptions)) {
+                $this->session->setKssMethod($selectedOptions['name']);
             }
 
-            if (array_key_exists('class', $selectedOptions['delivery_details'])) {
-                $this->session->setKssClass($selectedOptions['delivery_details']['class']);
-            }
+            if (array_key_exists('delivery_details', $selectedOptions)) {
+                if (array_key_exists('carrier', $selectedOptions['delivery_details'])) {
+                    $this->session->setKssCarrier($selectedOptions['delivery_details']['carrier']);
+                }
 
-            if (array_key_exists('shipping_method', $selectedOptions)) {
-                if ('PickUpPoint' === $selectedOptions['shipping_method']) {
-                    $pickupPointId = $selectedOptions['delivery_details']['pickup_location']['id'];
-                    $this->session->setKssPickupLocationId($pickupPointId);
+                if (array_key_exists('class', $selectedOptions['delivery_details'])) {
+                    $this->session->setKssClass($selectedOptions['delivery_details']['class']);
+                }
+
+                if (array_key_exists('shipping_method', $selectedOptions)) {
+                    if ($selectedOptions['shipping_method'] === 'PickUpPoint') {
+                        $pickupPointId = $selectedOptions['delivery_details']['pickup_location']['id'];
+                        $this->session->setKssPickupLocationId($pickupPointId);
+                    }
                 }
             }
         }
