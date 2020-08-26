@@ -52,6 +52,7 @@ class KlarnaBeforeOrder implements ObserverInterface
                         // Klarna is using pickpoint address as shipping address, this is not correct
                         // The shipping address should be the customers home address,
                         // The Pickup Location is used by the carrier to figure out the real shipping address
+                        $billingAddress = $checkoutData->getBillingAddress();
                         $quote->getShippingAddress()->setStreet([0 => $billingAddress['street_address']]);
                         $quote->getShippingAddress()->setPostcode($billingAddress['postal_code']);
                         $quote->getShippingAddress()->setCity($billingAddress['city']);
