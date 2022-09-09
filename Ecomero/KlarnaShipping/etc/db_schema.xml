@@ -21,6 +21,7 @@
         <column xsi:type="varchar" name="kss_carrier" nullable="true" length="32" comment="Klarna Shipping Carrier"/>
         <column xsi:type="varchar" name="kss_class" nullable="true" length="32" comment="Klarna Shipping Class"/>
         <column xsi:type="varchar" name="kss_pickup_location_id" nullable="true" length="32" comment="Klarna Shipping Pickup Point Id"/>
+        <column xsi:type="varchar" name="kss_tms_reference" nullable="true" length="128" comment="Klarna Shipping Tms Reference"/>
     </table>
       
 </schema>

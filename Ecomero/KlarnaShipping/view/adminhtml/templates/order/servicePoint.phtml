@@ -1,0 +1,48 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Ecomero\KlarnaShipping\ViewModel\KlarnaServicePointProvider $servicePoint */
+$servicePoint = $block->getData('KlarnaServicePointProvider');
+
+if ($servicePoint->getMethod()): ?>
+<table class="admin__table-secondary order-account-information-table" style="margin-top:10px;">
+    <tbody>
+        <tr>
+            <th style="background:gray;color:white;font-weight:bold" colspan = 2>
+                <?=__('Klarna shipping')?>
+            </th>
+        </tr>
+        <tr>
+            <th style="background:white">
+                <?=__('Method-Carrier')?>
+            </th>
+            <td style="background:white">
+                <?=$servicePoint->getMethod()?>-<?=$servicePoint->getCarrier()?>
+            </td>
+        </tr>
+        <tr>
+            <th style="background:white">
+                <?=__('Class')?>
+            </th>
+            <td style="background:white">
+                <?=$servicePoint->getClass()?>
+            </td>
+        </tr>
+        <tr>
+            <th style="background:white">
+                <?=__('Pickup Location Id')?>
+            </th>
+            <td style="background:white">
+                <?=$servicePoint->getPickupLocationId()?>
+            </td>
+        </tr>
+        <tr>
+            <th style="background:white">
+                <?=__('TMS Reference')?>
+            </th>
+            <td style="background:white">
+                <?=$servicePoint->getTmsReference()?>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<?php endif;?>

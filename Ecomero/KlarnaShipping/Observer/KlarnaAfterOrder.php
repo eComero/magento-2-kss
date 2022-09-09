@@ -19,6 +19,11 @@ use Magento\Framework\Event\ObserverInterface;
 
 class KlarnaAfterOrder implements ObserverInterface
 {
+    /**
+     * @var CheckoutSession
+     */
+    private CheckoutSession $session;
+
     public function __construct(CheckoutSession $session)
     {
         $this->session = $session;
@@ -30,17 +35,20 @@ class KlarnaAfterOrder implements ObserverInterface
         $carrier = $this->session->getKssCarrier();
         $class = $this->session->getKssClass();
         $pickupPointId = $this->session->getKssPickupLocationId();
+        $tmsReference = $this->session->getKssTmsReference();
 
         $order = $observer->getData('order');
         $order->setKssMethod($methodName);
         $order->setKssCarrier($carrier);
         $order->setKssClass($class);
         $order->setKssPickupLocationId($pickupPointId);
+        $order->setKssTmsReference($tmsReference);
         $order->save();
 
         $this->session->unsKssMethod();
         $this->session->unsKssCarrier();
         $this->session->unsKssClass();
         $this->session->unsKssPickupLocationId();
+        $this->session->unsKssTmsReference();
     }
 }

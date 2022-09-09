@@ -18,7 +18,7 @@ use Magento\Framework\Event\ObserverInterface;
 
 class KlarnaBeforeOrder implements ObserverInterface
 {
-    protected $session;
+    protected CheckoutSession $session;
 
     public function __construct(CheckoutSession $session)
     {
@@ -35,6 +35,10 @@ class KlarnaBeforeOrder implements ObserverInterface
                 $this->session->setKssMethod($selectedOptions['name']);
             }
 
+            if (array_key_exists('tms_reference', $selectedOptions)) {
+                $this->session->setKssTmsReference($selectedOptions['tms_reference']);
+            }
+
             if (array_key_exists('delivery_details', $selectedOptions)) {
                 if (array_key_exists('carrier', $selectedOptions['delivery_details'])) {
                     $this->session->setKssCarrier($selectedOptions['delivery_details']['carrier']);
@@ -48,11 +52,14 @@ class KlarnaBeforeOrder implements ObserverInterface
                     if ($selectedOptions['shipping_method'] === 'PickUpPoint') {
                         $pickupPointId = $selectedOptions['delivery_details']['pickup_location']['id'];
                         $this->session->setKssPickupLocationId($pickupPointId);
-                        
+
                         // Klarna is using pickpoint address as shipping address, this is not correct
                         // The shipping address should be the customers home address,
                         // The Pickup Location is used by the carrier to figure out the real shipping address
+
                         $billingAddress = $checkoutData->getBillingAddress();
+
+                        $quote = $observer->getData('quote');
                         $quote->getShippingAddress()->setStreet([0 => $billingAddress['street_address']]);
                         $quote->getShippingAddress()->setPostcode($billingAddress['postal_code']);
                         $quote->getShippingAddress()->setCity($billingAddress['city']);
